@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/google-tasks-api/:path*",
+      "destination": "https://tasks.googleapis.com/:path*"
+    }
+  ]
+}
