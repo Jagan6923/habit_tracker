@@ -1,26 +1,26 @@
-/**
- * Fetches user's Google Tasks using an OAuth 2.0 access token.
- * Uses Vite proxy to bypass browser CORS preflight restrictions.
- */
 export async function fetchGoogleTasks(accessToken) {
   if (!accessToken) {
     throw new Error('OAuth access token is required to fetch Google Tasks.')
   }
 
   const cleanToken = accessToken.trim()
-  const proxyUrl = `/google-tasks-api/tasks/v1/lists/@default/tasks`
-  const directUrl = `https://tasks.googleapis.com/tasks/v1/lists/@default/tasks`
+  const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+  
+  const directUrl = 'https://tasks.googleapis.com/tasks/v1/lists/@default/tasks'
+  const proxyUrl = '/google-tasks-api/tasks/v1/lists/@default/tasks'
 
-  let response
-  try {
-    response = await fetch(proxyUrl, {
-      headers: {
-        Authorization: `Bearer ${cleanToken}`,
-        Accept: 'application/json',
-      },
-    })
-  } catch (proxyErr) {
-    console.warn('Proxy fetch failed, attempting direct fetch:', proxyErr)
+  const primaryUrl = isLocalhost ? proxyUrl : directUrl
+
+  let response = await fetch(primaryUrl, {
+    headers: {
+      Authorization: `Bearer ${cleanToken}`,
+      Accept: 'application/json',
+    },
+  })
+
+  // If local proxy fails or returns 404, fallback to direct Google API URL
+  if (!response.ok && primaryUrl !== directUrl) {
+    console.warn('Proxy request failed, falling back to direct Google API URL...')
     response = await fetch(directUrl, {
       headers: {
         Authorization: `Bearer ${cleanToken}`,
