@@ -4,7 +4,7 @@ import { fetchGoogleTasks, formatGoogleTaskToHabit } from '../services/googleTas
 
 export default function GoogleTasksModal({ isOpen, onClose, onImportHabits }) {
   const [accessToken, setAccessToken] = useState('')
-  const [clientId, setClientId] = useState('721724668570-nbkv1cfusk7kk4eni4pjvepaus73b13t.apps.googleusercontent.com')
+  const [clientId, setClientId] = useState(import.meta.env.VITE_GOOGLE_CLIENT_ID || '')
   const [tasks, setTasks] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')

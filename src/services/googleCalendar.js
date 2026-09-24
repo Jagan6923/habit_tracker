@@ -1,6 +1,4 @@
-// Google Calendar API integration service for Habit Tracker
-
-export const GOOGLE_CALENDAR_API_KEY = 'AIzaSyCsnV-rwRc7QDccJg1woY6EKHK-9pGX1EE'
+export const GOOGLE_CALENDAR_API_KEY = import.meta.env.VITE_GOOGLE_CALENDAR_API_KEY || ''
 
 /**
  * Generates a Google Calendar event creation web URL for a habit.
