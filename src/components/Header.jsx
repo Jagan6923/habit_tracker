@@ -17,10 +17,7 @@ export default function Header({ habits = [], currentWeekDate = new Date(), onPr
       <div className="flex flex-col gap-1">
         <div className="flex items-center gap-2">
           <h1 className="text-3xl font-bold">Habit Tracker</h1>
-          <span className="text-xs bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full font-medium flex items-center gap-1" title="Google Calendar API Key configured">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            Calendar Sync
-          </span>
+          
         </div>
         <span className="text-zinc-400 text-sm">
           {completedTodayCount}/{habits.length} done today
